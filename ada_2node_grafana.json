@@ -16,8 +16,23 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 13,
-  "links": [],
+  "id": 10,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [],
+      "title": "View stakepool homepage",
+      "type": "link",
+      "url": "https://usas.one"
+    },
+    {
+      "icon": "external link",
+      "tags": [],
+      "title": "View details on ADAPools.org",
+      "type": "link",
+      "url": "https://adapools.org/pool/576e0390ac54e3751afdaa8aa256f41b84a6324006f23991f6fdefb7"
+    }
+  ],
   "panels": [
     {
       "bgColor": "rgb(7, 22, 36)",
@@ -168,9 +183,12 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "Remaining KES periods before we need to rotate keys",
+      "description": "",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 0,
           "mappings": [
             {
@@ -181,7 +199,7 @@
               "value": "null"
             }
           ],
-          "max": 396,
+          "max": 90,
           "min": 0,
           "noValue": "-",
           "thresholds": {
@@ -211,8 +229,103 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 8,
+        "w": 4,
         "x": 7,
+        "y": 0
+      },
+      "id": 151,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "cardano_node_metrics_currentKESPeriod_int",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Current Period",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "cardano_node_metrics_operationalCertificateExpiryKESPeriod_int",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Expiry Period",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "KES Key Rotation",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "Remaining KES DAYS before we need to rotate keys",
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 0,
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 90,
+          "min": 0,
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 5
+              },
+              {
+                "color": "dark-orange",
+                "value": 10
+              },
+              {
+                "color": "dark-green",
+                "value": 15
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 11,
         "y": 0
       },
       "id": 19,
@@ -236,7 +349,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(cardano_node_metrics_remainingKESPeriods_int{alias=\"block-producer-node\"} * 1.5)",
+          "expr": "(cardano_node_metrics_remainingKESPeriods_int * 1.5)",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -246,7 +359,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Remaining KES Periods",
+      "title": "KES Key : Days Left",
       "transformations": [],
       "type": "bargauge"
     },
@@ -1051,11 +1164,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "cardano_node_metrics_Forge_node_is_leader_int{alias=\"block-producer-node\"}",
+          "expr": "cardano_node_metrics_Forge_node_is_leader_int{alias=\"block-producer-node\"}+4",
           "hide": false,
-          "instant": false,
           "interval": "",
-          "legendFormat": "Core",
+          "legendFormat": "USONE_Core",
           "refId": "A"
         }
       ],
@@ -4529,7 +4641,7 @@
     ]
   },
   "timezone": "",
-  "title": "USONE ADA Pool_2",
-  "uid": "s-XjlIuMz",
-  "version": 2
+  "title": "USONE ADA Pool",
+  "uid": "USONE",
+  "version": 24
 }
